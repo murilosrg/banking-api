@@ -28,3 +28,4 @@ banking-*.tar
 /priv/static/
 
 .elixir_ls
+.db
