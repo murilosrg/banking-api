@@ -8,8 +8,11 @@ defmodule Banking.CreateUser do
 
   def run(params) do
     %User{}
-    |> cast(params, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(params, [:name, :email, :password, :employee])
+    |> validate_required([:name, :email, :password, :employee])
+    |> unique_constraint(:email)
+    |> validate_format(:email, ~r/@/)
+    |> validate_length(:password, min: 6, max: 20)
     |> put_password()
     |> Repo.insert()
   end
