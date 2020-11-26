@@ -1,7 +1,7 @@
 defmodule Banking.CreateUserTest do
   use Banking.DataCase, async: true
 
-  alias Banking.{User, CreateUser}
+  alias Banking.{CreateUser, User}
 
   describe "run/1" do
     test "returns a struct when params are valid" do

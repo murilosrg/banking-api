@@ -1,10 +1,14 @@
 defmodule Banking.CreateUser do
   @moduledoc """
+
+
+
   Creating a new user
   """
+
   import Ecto.Changeset
 
-  alias Banking.{User, Repo}
+  alias Banking.{Repo, User}
 
   def run(params) do
     %User{}
