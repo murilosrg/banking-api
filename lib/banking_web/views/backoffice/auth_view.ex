@@ -1,9 +1,10 @@
 defmodule BankingWeb.Backoffice.AuthView do
   use BankingWeb, :view
 
-  def render("auth.json", %{user: user}) do
+  def render("auth.json", %{user: user, token: token}) do
     %{
-      name: user.name
+      email: user.email,
+      token: token
     }
   end
 end

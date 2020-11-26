@@ -18,7 +18,7 @@ defmodule BankingWeb.Backoffice.AuthControllerTest do
           "password" => "123456"
         })
 
-      assert %{"name" => "Jane Smith"} = json_response(conn, 200)
+      assert %{"email" => "employee@example.com"} = json_response(conn, 200)
     end
 
     test "return 401 when user credentials is invalid", %{conn: conn} do

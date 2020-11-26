@@ -9,7 +9,8 @@ defmodule BankingWeb.Backoffice.AuthViewTest do
     test "returns ok and user data" do
       user = params_for(:employee)
 
-      assert %{name: "Jane Smith"} = AuthView.render("auth.json", %{user: user})
+      assert %{email: "employee@example.com", token: "valid-token"} =
+               AuthView.render("auth.json", %{user: user, token: "valid-token"})
     end
   end
 end
