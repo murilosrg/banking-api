@@ -1,4 +1,6 @@
-# Banking
+# Banking API
+
+[![CircleCI](https://circleci.com/gh/murilosrg/banking-api.svg?style=shield&circle-token=f463dcd3cee643cf95b3f6703373cd2fc61978a3)](https://app.circleci.com/pipelines/github/murilosrg/banking-api)
 
 To start your Phoenix server:
 
