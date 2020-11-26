@@ -7,7 +7,7 @@ defmodule BankingWeb.Backoffice.AuthController do
   def create(conn, %{"email" => email, "password" => password}) do
     case SignInBackoffice.run(email, password) do
       {:ok, user} ->
-        {:ok, token, _} = Guardian.encode_and_sign(user)
+        {:ok, token, _} = Guardian.encode_and_sign(user, %{employee: true}, ttl: {1, :hour})
         render(conn, "auth.json", %{user: user, token: token})
 
       {:error, _} ->

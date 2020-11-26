@@ -4,6 +4,7 @@ defmodule Banking.User do
   """
   use Ecto.Schema
 
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
   schema "users" do
     field :email, :string
     field :employee, :boolean
