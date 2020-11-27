@@ -21,4 +21,11 @@ defmodule Banking.Factory do
       employee: false
     }
   end
+
+  def account_factory do
+    %Banking.Account{
+      balance: 1000,
+      user: build(:client)
+    }
+  end
 end

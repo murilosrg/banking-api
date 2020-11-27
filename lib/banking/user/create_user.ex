@@ -1,8 +1,5 @@
 defmodule Banking.CreateUser do
   @moduledoc """
-
-
-
   Creating a new user
   """
 
