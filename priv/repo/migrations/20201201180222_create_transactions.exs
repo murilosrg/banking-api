@@ -8,7 +8,8 @@ defmodule Banking.Repo.Migrations.CreateTransactions do
       add :account_to, :uuid
       add :type, :integer, null: false
 
-      add :account_from, references(:accounts, on_delete: :nothing, type: :uuid, null: false), null: false
+      add :account_from, references(:accounts, on_delete: :nothing, type: :uuid, null: false),
+        null: false
 
       timestamps()
     end
