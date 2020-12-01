@@ -7,7 +7,7 @@ defmodule Banking.Factory do
   def employee_factory do
     %Banking.User{
       name: "Jane Smith",
-      email: "employee@example.com",
+      email: sequence(:email, &"employee-#{&1}@example.com"),
       password_hash: Bcrypt.hash_pwd_salt("123456"),
       employee: true
     }
@@ -16,7 +16,7 @@ defmodule Banking.Factory do
   def client_factory do
     %Banking.User{
       name: "Will Smith",
-      email: "client@example.com",
+      email: sequence(:email, &"email-#{&1}@example.com"),
       password_hash: Bcrypt.hash_pwd_salt("123456"),
       employee: false
     }

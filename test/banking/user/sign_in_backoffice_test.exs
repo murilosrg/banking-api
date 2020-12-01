@@ -6,14 +6,9 @@ defmodule Banking.SignInBackofficeTest do
   alias Banking.{SignInBackoffice, User}
 
   describe "run/2" do
-    setup do
-      insert(:client)
-      insert(:employee)
-      :ok
-    end
-
     test "returns ok when email and password match" do
-      assert {:ok, %User{}} = SignInBackoffice.run("employee@example.com", "123456")
+      employee = insert(:employee)
+      assert {:ok, %User{}} = SignInBackoffice.run(employee.email, "123456")
     end
 
     test "returns error when there is not user this email" do
@@ -27,8 +22,9 @@ defmodule Banking.SignInBackofficeTest do
     end
 
     test "returns error when not an employee" do
-      assert {:error, :email_or_password_invalid} =
-               SignInBackoffice.run("client@email.com", "123456")
+      client = insert(:client)
+
+      assert {:error, :email_or_password_invalid} = SignInBackoffice.run(client.email, "123456")
     end
   end
 end

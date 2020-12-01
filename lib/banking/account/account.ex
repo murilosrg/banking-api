@@ -11,6 +11,7 @@ defmodule Banking.Account do
     field :balance, :decimal, default: 1000
 
     belongs_to :user, Banking.User
+    has_many :transactions, Banking.Transaction, foreign_key: :account_from, references: :id
 
     timestamps()
   end
