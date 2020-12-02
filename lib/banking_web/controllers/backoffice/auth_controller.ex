@@ -4,16 +4,12 @@ defmodule BankingWeb.Backoffice.AuthController do
   alias Banking.SignInBackoffice
   alias BankingWeb.Guardian
 
-  def create(conn, %{"email" => email, "password" => password}) do
-    case SignInBackoffice.run(email, password) do
-      {:ok, user} ->
-        {:ok, token, _} = Guardian.encode_and_sign(user, %{employee: true}, ttl: {1, :hour})
-        render(conn, "auth.json", %{user: user, token: token})
+  action_fallback(BankingWeb.FallbackController)
 
-      {:error, _} ->
-        conn
-        |> put_status(401)
-        |> json(%{"error" => "Unauthorized"})
+  def create(conn, %{"email" => email, "password" => password}) do
+    with {:ok, user} <- SignInBackoffice.run(email, password),
+         {:ok, token, _} = Guardian.encode_and_sign(user, %{employee: true}, ttl: {1, :hour}) do
+      render(conn, "auth.json", %{user: user, token: token})
     end
   end
 end

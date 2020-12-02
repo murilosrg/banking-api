@@ -8,7 +8,7 @@ defmodule Banking.SignInBackoffice do
   def run(email, password) do
     case Repo.get_by(User, email: email, employee: true) do
       %User{} = user -> verify_password(user, password)
-      nil -> {:error, :email_or_password_invalid}
+      nil -> {:error, :unauthorized}
     end
   end
 
@@ -16,7 +16,7 @@ defmodule Banking.SignInBackoffice do
     if Bcrypt.verify_pass(password, user.password_hash) do
       {:ok, user}
     else
-      {:error, :email_or_password_invalid}
+      {:error, :unauthorized}
     end
   end
 end
