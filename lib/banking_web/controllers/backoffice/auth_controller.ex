@@ -7,9 +7,13 @@ defmodule BankingWeb.Backoffice.AuthController do
   action_fallback(BankingWeb.FallbackController)
 
   def create(conn, %{"email" => email, "password" => password}) do
-    with {:ok, user} <- SignInBackoffice.run(email, password),
-         {:ok, token, _} = Guardian.encode_and_sign(user, %{employee: true}, ttl: {1, :hour}) do
-      render(conn, "auth.json", %{user: user, token: token})
+    case SignInBackoffice.run(email, password) do
+      {:ok, user} ->
+        {:ok, token, _} = Guardian.encode_and_sign(user, %{employee: true}, ttl: {1, :hour})
+        render(conn, "auth.json", %{user: user, token: token})
+
+      {:error, :unauthorized} ->
+        {:error, :unauthorized}
     end
   end
 end
