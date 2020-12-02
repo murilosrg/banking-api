@@ -4,7 +4,7 @@ defmodule BankingWeb.Backoffice.AuthController do
   alias Banking.SignInBackoffice
   alias BankingWeb.Guardian
 
-  action_fallback(BankingWeb.FallbackController)
+  action_fallback BankingWeb.FallbackController
 
   def create(conn, %{"email" => email, "password" => password}) do
     case SignInBackoffice.run(email, password) do

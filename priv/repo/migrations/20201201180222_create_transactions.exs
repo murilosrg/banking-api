@@ -4,7 +4,7 @@ defmodule Banking.Repo.Migrations.CreateTransactions do
   def change do
     create table(:transactions, primary_key: false) do
       add :id, :uuid, primary_key: true
-      add :amount, :decimal
+      add :amount, :decimal, precision: 15, scale: 2, null: false
       add :account_to, :uuid
       add :type, :integer, null: false
 
