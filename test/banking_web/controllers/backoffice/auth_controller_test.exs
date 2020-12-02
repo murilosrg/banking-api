@@ -8,7 +8,7 @@ defmodule BankingWeb.Backoffice.AuthControllerTest do
       employee = insert(:employee)
 
       conn =
-        post(conn, "api/v1/backoffice/sign_in", %{
+        post(conn, "api/v1/backoffice/login", %{
           "email" => employee.email,
           "password" => "123456"
         })
@@ -21,24 +21,24 @@ defmodule BankingWeb.Backoffice.AuthControllerTest do
       employee = insert(:employee)
 
       conn =
-        post(conn, "api/v1/backoffice/sign_in", %{
+        post(conn, "api/v1/backoffice/login", %{
           "email" => employee.email,
           "password" => "1234567"
         })
 
-      assert %{"error" => "Unauthorized"} = json_response(conn, 401)
+      assert %{"message" => "Unauthorized"} = json_response(conn, 401)
     end
 
     test "return 401 when user credentials is valid but is not a employee", %{conn: conn} do
       client = insert(:client)
 
       conn =
-        post(conn, "api/v1/backoffice/sign_in", %{
+        post(conn, "api/v1/backoffice/login", %{
           "email" => client.id,
           "password" => "123456"
         })
 
-      assert %{"error" => "Unauthorized"} = json_response(conn, 401)
+      assert %{"message" => "Unauthorized"} = json_response(conn, 401)
     end
   end
 end

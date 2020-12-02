@@ -8,6 +8,7 @@ defmodule BankingWeb.Router do
   scope "/api/v1", BankingWeb do
     pipe_through :api
 
-    post("/backoffice/sign_in", Backoffice.AuthController, :create)
+    post("/backoffice/login", Backoffice.AuthController, :create)
+    post("/account/sign_in", AccountController, :create)
   end
 end

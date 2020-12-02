@@ -12,19 +12,17 @@ defmodule Banking.SignInBackofficeTest do
     end
 
     test "returns error when there is not user this email" do
-      assert {:error, :email_or_password_invalid} =
-               SignInBackoffice.run("employee1@example.com", "123456")
+      assert {:error, :unauthorized} = SignInBackoffice.run("employee1@example.com", "123456")
     end
 
     test "returns error when the password is invalid" do
-      assert {:error, :email_or_password_invalid} =
-               SignInBackoffice.run("employee@example.com", "1234567")
+      assert {:error, :unauthorized} = SignInBackoffice.run("employee@example.com", "1234567")
     end
 
     test "returns error when not an employee" do
       client = insert(:client)
 
-      assert {:error, :email_or_password_invalid} = SignInBackoffice.run(client.email, "123456")
+      assert {:error, :unauthorized} = SignInBackoffice.run(client.email, "123456")
     end
   end
 end

@@ -12,6 +12,8 @@ defmodule Banking.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    has_one :account, Banking.Account
+
     timestamps()
   end
 end
