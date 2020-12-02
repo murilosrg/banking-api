@@ -9,6 +9,6 @@ defmodule BankingWeb.Router do
     pipe_through :api
 
     post("/backoffice/login", Backoffice.AuthController, :create)
-    post("/sign_in", AccountController, :create)
+    post("/account/sign_in", AccountController, :create)
   end
 end
