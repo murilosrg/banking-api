@@ -6,6 +6,6 @@ defmodule Banking.UserRepo do
   alias Banking.{Repo, User}
 
   def get_user!(email) do
-    Repo.get!(User, email)
+    Repo.get_by!(User, email: email)
   end
 end
