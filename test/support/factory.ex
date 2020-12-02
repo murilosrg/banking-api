@@ -4,8 +4,10 @@ defmodule Banking.Factory do
   """
   use ExMachina.Ecto, repo: Banking.Repo
 
+  alias Banking.{Account, User}
+
   def employee_factory do
-    %Banking.User{
+    %User{
       name: "Jane Smith",
       email: sequence(:email, &"employee-#{&1}@example.com"),
       password_hash: Bcrypt.hash_pwd_salt("123456"),
@@ -14,7 +16,7 @@ defmodule Banking.Factory do
   end
 
   def client_factory do
-    %Banking.User{
+    %User{
       name: "Will Smith",
       email: sequence(:email, &"email-#{&1}@example.com"),
       password_hash: Bcrypt.hash_pwd_salt("123456"),
@@ -23,9 +25,17 @@ defmodule Banking.Factory do
   end
 
   def account_factory do
-    %Banking.Account{
+    %Account{
       balance: 1000,
       user: build(:client)
+    }
+  end
+
+  def create_account_factory do
+    %{
+      "name" => "Jaden Smith",
+      "email" => sequence(:email, &"email-#{&1}@example.com"),
+      "password" => "123456"
     }
   end
 end

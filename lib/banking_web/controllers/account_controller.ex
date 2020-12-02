@@ -5,12 +5,11 @@ defmodule BankingWeb.AccountController do
   action_fallback(BankingWeb.FallbackController)
 
   def create(conn, params) do
-    account =
-      params
-      |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
-
-    with {:ok, account, _} <- CreateAccount.run(account) do
-      render(conn, "account.json", %{account: account})
+    with {:ok, %{account: account, user: user}} <-
+           CreateAccount.run(params) do
+      conn
+      |> put_status(:created)
+      |> render("account.json", %{account: account, user: user})
     end
   end
 end
