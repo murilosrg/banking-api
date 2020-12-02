@@ -1,4 +1,4 @@
-defmodule BankingWeb.Pipeline do
+defmodule BankingWeb.BackofficePipeline do
   @moduledoc """
   A pipeline to guardian
   """
@@ -8,7 +8,7 @@ defmodule BankingWeb.Pipeline do
     module: BankingWeb.Guardian,
     error_handler: BankingWeb.ErrorHandler
 
-  plug Guardian.Plug.VerifyHeader, realm: "Bearer", claims: %{employee: false}
+  plug Guardian.Plug.VerifyHeader, realm: "Bearer", claims: %{employee: true}
   plug Guardian.Plug.EnsureAuthenticated
   plug Guardian.Plug.LoadResource
 end

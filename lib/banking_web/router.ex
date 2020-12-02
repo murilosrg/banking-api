@@ -9,6 +9,10 @@ defmodule BankingWeb.Router do
     plug BankingWeb.Pipeline
   end
 
+  pipeline :backoffice_jwt do
+    plug BankingWeb.BackofficePipeline
+  end
+
   scope "/api/v1", BankingWeb do
     pipe_through :api
 
@@ -22,5 +26,9 @@ defmodule BankingWeb.Router do
 
     post("/transaction/withdrawal", TransactionController, :withdrawal)
     post("/transaction/transfer", TransactionController, :transfer)
+  end
+
+  scope "/api/v1", BankingWeb do
+    pipe_through [:api, :backoffice_jwt]
   end
 end
