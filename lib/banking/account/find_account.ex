@@ -10,6 +10,6 @@ defmodule Banking.FindAccount do
     Account
     |> join(:left, [a], u in User, on: a.user_id == u.id)
     |> where([a, u], u.email == ^email)
-    |> Repo.one!()
+    |> Repo.one()
   end
 end
