@@ -4,7 +4,7 @@ defmodule Banking.Factory do
   """
   use ExMachina.Ecto, repo: Banking.Repo
 
-  alias Banking.{Account, User}
+  alias Banking.{Account, Transaction, User}
 
   def employee_factory do
     %User{
@@ -28,6 +28,14 @@ defmodule Banking.Factory do
     %Account{
       balance: 1000,
       user: build(:client)
+    }
+  end
+
+  def transaction_factory do
+    %Transaction{
+      amount: 10,
+      type: 1,
+      account_from: build(:account)
     }
   end
 
