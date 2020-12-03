@@ -1,7 +1,7 @@
 defmodule Banking.CreateAccountTest do
   use Banking.DataCase, async: true
 
-  alias Banking.{Account, CreateAccount}
+  alias Banking.CreateAccount
 
   import Banking.Factory
 
