@@ -2,7 +2,7 @@ defmodule BankingWeb.TransactionController do
   use BankingWeb, :controller
 
   alias BankingWeb.Guardian
-  alias Banking.{Repo, ValidateTransaction}
+  alias Banking.{Mailer, Repo, ValidateTransaction, WithdrawalEmail}
 
   action_fallback BankingWeb.FallbackController
 
@@ -14,6 +14,10 @@ defmodule BankingWeb.TransactionController do
     case ValidateTransaction.valid_transaction?(user.account, amount) do
       {:ok, account} ->
         {:ok, updated} = ValidateTransaction.debit_from_account(account, amount)
+
+        {:ok, decimal} = Decimal.cast(amount)
+        email = WithdrawalEmail.create(user.email, decimal)
+        Mailer.deliver_now(email)
 
         conn
         |> render("account.json", %{account: updated.account})
