@@ -30,5 +30,7 @@ defmodule BankingWeb.Router do
 
   scope "/api/v1", BankingWeb do
     pipe_through [:api, :backoffice_jwt]
+
+    get("/backoffice/report", Backoffice.ReportController, :report)
   end
 end
