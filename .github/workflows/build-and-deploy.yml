@@ -1,0 +1,60 @@
+on: push
+
+jobs:
+  # build:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       otp: [22.2.7]
+  #       elixir: [1.10.1]
+  #   env:
+  #     MIX_ENV: test
+  #   services:
+  #     db_test:
+  #       image: postgres:latest
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_PASSWORD: postgres
+  #         POSTGRES_DB: banking_api_test
+  #       ports: ['5432:5432']
+  #       options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-elixir@v1
+  #       with:
+  #         otp-version: 22.2.7
+  #         elixir-version: 1.10.1
+
+  #     - uses: actions/cache@v1
+  #       id: deps-cache
+  #       with:
+  #         path: deps
+  #         key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+  #     - uses: actions/cache@v1
+  #       id: build-cache
+  #       with:
+  #         path: _build
+  #         key: ${{ runner.os }}-build-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+  #     - name: Install deps
+  #       run: |
+  #         mix deps.get
+          
+  #     - run: mix test
+  #     - run: mix format --check-formatted
+  #     - run: mix credo
+  
+  deploy:
+    # needs: build
+    if: github.ref == 'refs/heads/feature/cd'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.6.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: banking-api-ex
+          heroku_email: muriilo@live.it
+          usedocker: true
